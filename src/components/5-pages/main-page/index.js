@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import MainTemplate from '../../4-templates/main-template';
 import MainHeader from '../../3-organisms/main-header';
+import MainNav from '../../3-organisms/main-nav';
 
 const Mockup = styled.div`
   width: 100%;
@@ -26,7 +27,14 @@ class MainPage extends Component {
       <MainTemplate
         top={() => <MainHeader onToggleLeftArea={_toggleIsOpenLeft} />}
         center={() => <Mockup borderColor="black" />}
-        left={() => <Mockup borderColor="blue" onClick={_toggleIsOpenLeft} />}
+        left={() => (
+          <MainNav
+            title="Navs"
+            navs={[{ key: '1', title: 'sample' }]}
+            onToggleNav={_toggleIsOpenLeft}
+            onClickNavItem={console.log}
+          />
+        )}
         isOpenLeft={isOpenLeft}
       />
     );

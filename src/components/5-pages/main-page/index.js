@@ -36,7 +36,6 @@ class MainPage extends Component {
             title="Navs"
             navs={[{ key: '1', title: 'sample' }]}
             onToggleNav={_toggleIsOpenLeft}
-            onClickNavItem={console.log}
           />
         )}
         isOpenLeft={isOpenLeft}

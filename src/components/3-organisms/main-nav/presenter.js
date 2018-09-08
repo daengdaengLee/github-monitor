@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Link as _Link } from 'react-router-dom';
 
 const Container = styled.div`
   width: 100%;
@@ -59,42 +60,36 @@ const ListItem = styled.li`
   }
 `;
 
-class MainNav extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: 'Users',
-    };
+const Link = styled(_Link)`
+  color: black;
+  text-decoration: none !important;
+  &:hover {
+    color: black;
   }
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+`;
 
-  render() {
-    const { users, onToggleNav, onClickNavItem } = this.props;
-    const { title } = this.state;
-    const navs =
-      title === 'Users' ? users.map(user => ({ key: user, title: user })) : [];
-    const type = title === 'Users' ? 'user' : 'repo';
-    return (
-      <Container>
-        <Header>
-          <Title>{title}</Title>
-          <CloseButton onClick={onToggleNav} />
-        </Header>
-        <Nav>
-          <List>
-            {navs.map(nav => (
-              <ListItem
-                key={nav.key}
-                onClick={() => onClickNavItem(type, nav.key)}
-              >
-                {nav.title}
-              </ListItem>
-            ))}
-          </List>
-        </Nav>
-      </Container>
-    );
-  }
-}
+const MainNav = ({ users, onToggleNav, onClickNavItem }) => (
+  <Container>
+    <Header>
+      <Title>Users</Title>
+      <CloseButton onClick={onToggleNav} />
+    </Header>
+    <Nav>
+      <List>
+        {users.map(user => (
+          <ListItem key={user} onClick={onToggleNav}>
+            <Link to={`/repos/${user}`}>{user}</Link>
+          </ListItem>
+        ))}
+      </List>
+    </Nav>
+  </Container>
+);
 
 MainNav.defaultProps = {
   users: [],
@@ -103,7 +98,6 @@ MainNav.defaultProps = {
 MainNav.propTypes = {
   users: PropTypes.arrayOf(PropTypes.string),
   onToggleNav: PropTypes.func.isRequired,
-  onClickNavItem: PropTypes.func.isRequired,
 };
 
 export default MainNav;

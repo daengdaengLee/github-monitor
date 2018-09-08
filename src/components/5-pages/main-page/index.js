@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import MainTemplate from '../../4-templates/main-template';
+import MainHeader from '../../3-organisms/main-header';
 
 const Mockup = styled.div`
   width: 100%;
@@ -19,12 +20,13 @@ class MainPage extends Component {
   }
 
   render() {
+    const { _toggleIsOpenLeft } = this;
     const { isOpenLeft } = this.state;
     return (
       <MainTemplate
-        top={() => <Mockup borderColor="red" />}
+        top={() => <MainHeader onToggleLeftArea={_toggleIsOpenLeft} />}
         center={() => <Mockup borderColor="black" />}
-        left={() => <Mockup borderColor="blue" />}
+        left={() => <Mockup borderColor="blue" onClick={_toggleIsOpenLeft} />}
         isOpenLeft={isOpenLeft}
       />
     );

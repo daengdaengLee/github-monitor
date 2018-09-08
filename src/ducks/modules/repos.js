@@ -34,15 +34,17 @@ export function fetchStart({ username }) {
   };
 }
 
-export function fetchSuccess() {
+export function fetchSuccess({ username }) {
   return {
     type: FETCH_SUCCESS,
+    username,
   };
 }
 
-export function fetchFail() {
+export function fetchFail({ username }) {
   return {
     type: FETCH_FAIL,
+    username,
   };
 }
 

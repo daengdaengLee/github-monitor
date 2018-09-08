@@ -23,9 +23,9 @@ function* pushUserSaga({ username }) {
       const { data } = yield call(listRepos, username, i);
       yield put(pushRepos({ username, repos: data }));
     }
-    yield put(fetchSuccess());
+    yield put(fetchSuccess({ username }));
   } catch (error) {
-    yield put(fetchFail());
+    yield put(fetchFail({ username }));
   }
 }
 

@@ -4,6 +4,7 @@ import MainTemplate from '../../4-templates/main-template';
 import MainHeader from '../../3-organisms/main-header';
 import MainNav from '../../3-organisms/main-nav';
 import MainUserRegister from '../../3-organisms/main-user-register';
+import MainReposList from '../../3-organisms/main-repos-list';
 
 class MainPage extends Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class MainPage extends Component {
               path="/registers"
               render={() => <MainUserRegister onSubmitUser={console.log} />}
             />
+            <Route path="/repos/:username" component={MainReposList} />
             <Redirect from="*" to="/registers" />
           </Switch>
         )}

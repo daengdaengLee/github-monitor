@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Link as _Link } from 'react-router-dom';
 
 const Container = styled.div`
   width: 100%;
@@ -30,10 +31,20 @@ const ToggleButton = styled.button`
   margin-left: 1rem;
 `;
 
+const Link = styled(_Link)`
+  color: black;
+  text-decoration: none !important;
+  &:hover {
+    color: black;
+  }
+`;
+
 const MainHeader = ({ onToggleLeftArea }) => (
   <Container>
     <ToggleButton onClick={onToggleLeftArea} />
-    <Title>Github Monitor</Title>
+    <Title>
+      <Link to="/registers">Github Monitor</Link>
+    </Title>
   </Container>
 );
 

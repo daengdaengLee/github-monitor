@@ -2,12 +2,12 @@
 export const FETCH_START = 'repos/FETCH_START';
 export const FETCH_SUCCESS = 'repos/FETCH_SUCCESS';
 export const FETCH_FAIL = 'repos/FETCH_FAIL';
-export const PUSH_REPO = 'repos/PUSH_REPO';
+export const PUSH_REPOS = 'repos/PUSH_REPOS';
 
 // Init State
 const initState = {
   isFetching: true,
-  repos: [],
+  repos: {},
 };
 
 // Reducer
@@ -19,8 +19,8 @@ export default function reposReducer(state = initState, action = {}) {
     return applyFetchSuccess(state, action);
   case FETCH_FAIL:
     return applyFetchFail(state, action);
-  case PUSH_REPO:
-    return applyPushRepo(state, action);
+  case PUSH_REPOS:
+    return applyPushRepos(state, action);
   default:
     return state;
   }
@@ -46,10 +46,11 @@ export function fetchFail() {
   };
 }
 
-export function pushRepo({ repo }) {
+export function pushRepos({ username, repos }) {
   return {
-    type: PUSH_REPO,
-    repo,
+    type: PUSH_REPOS,
+    username,
+    repos,
   };
 }
 
@@ -74,9 +75,13 @@ function applyFetchFail(state) {
   };
 }
 
-function applyPushRepo(state, { repo }) {
+function applyPushRepos(state, { username, repos }) {
+  const isInit = !state.repos.hasOwnProperty(username);
+  const updatedRepos = isInit
+    ? { ...state.repos, [username]: repos }
+    : { ...state.repos, [username]: [...state.repos[username], ...repos] };
   return {
     ...state,
-    repos: [...state.repos, repo],
+    repos: updatedRepos,
   };
 }

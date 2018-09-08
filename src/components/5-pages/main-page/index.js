@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import MainTemplate from '../../4-templates/main-template';
 import MainHeader from '../../3-organisms/main-header';
 import MainNav from '../../3-organisms/main-nav';
@@ -19,7 +20,15 @@ class MainPage extends Component {
     return (
       <MainTemplate
         top={() => <MainHeader onToggleLeftArea={_toggleIsOpenLeft} />}
-        center={() => <MainUserRegister onSubmitUser={console.log} />}
+        center={() => (
+          <Switch>
+            <Route
+              path="/registers"
+              render={() => <MainUserRegister onSubmitUser={console.log} />}
+            />
+            <Redirect from="*" to="/registers" />
+          </Switch>
+        )}
         left={() => (
           <MainNav
             title="Navs"

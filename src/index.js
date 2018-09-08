@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { injectGlobal } from 'styled-components';
 import MainPage from './components/5-pages/main-page';
 import 'antd/dist/antd.css';
@@ -11,4 +12,9 @@ injectGlobal`
   }
 `;
 
-ReactDOM.render(<MainPage />, document.getElementById('root'));
+ReactDOM.render(
+  <Router>
+    <MainPage />
+  </Router>,
+  document.getElementById('root'),
+);

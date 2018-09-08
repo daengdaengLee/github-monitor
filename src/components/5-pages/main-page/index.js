@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import MainTemplate from '../../4-templates/main-template';
 import MainHeader from '../../3-organisms/main-header';
 import MainNav from '../../3-organisms/main-nav';
-
-const Mockup = styled.div`
-  width: 100%;
-  height: 100%;
-  border: ${props => `1px solid ${props.borderColor}`};
-  box-sizing: border-box;
-`;
+import MainUserRegister from '../../3-organisms/main-user-register';
 
 class MainPage extends Component {
   constructor(props) {
@@ -26,7 +19,7 @@ class MainPage extends Component {
     return (
       <MainTemplate
         top={() => <MainHeader onToggleLeftArea={_toggleIsOpenLeft} />}
-        center={() => <Mockup borderColor="black" />}
+        center={() => <MainUserRegister onSubmitUser={console.log} />}
         left={() => (
           <MainNav
             title="Navs"

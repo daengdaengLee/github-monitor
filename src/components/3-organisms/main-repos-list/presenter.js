@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Link as _Link } from 'react-router-dom';
 
 const Container = styled.div`
   width: 100%;
@@ -36,8 +37,19 @@ const ListItem = styled.li`
   height: 2.6rem;
   min-height: 2.6rem;
   display: flex;
-  align-items: center;
   padding-left: 1rem;
+`;
+
+const Link = styled(_Link)`
+  color: black;
+  text-decoration: none !important;
+  &:hover {
+    color: black;
+  }
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 `;
 
 const MainReposList = ({ repos, match }) => {
@@ -48,7 +60,11 @@ const MainReposList = ({ repos, match }) => {
       <Title>{title}</Title>
       <List>
         {list.map(repo => (
-          <ListItem key={repo.id}>{repo.name}</ListItem>
+          <ListItem key={repo.id}>
+            <Link to={`/repos/${match.params.username}/${repo.id}`}>
+              {repo.name}
+            </Link>
+          </ListItem>
         ))}
       </List>
     </Container>

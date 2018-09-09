@@ -5,6 +5,7 @@ import MainHeader from '../../3-organisms/main-header';
 import MainNav from '../../3-organisms/main-nav';
 import MainUserRegister from '../../3-organisms/main-user-register';
 import MainReposList from '../../3-organisms/main-repos-list';
+import MainRepoDashboard from '../../3-organisms/main-repo-dashboard';
 
 class MainPage extends Component {
   constructor(props) {
@@ -23,21 +24,16 @@ class MainPage extends Component {
         top={() => <MainHeader onToggleLeftArea={_toggleIsOpenLeft} />}
         center={() => (
           <Switch>
+            <Route path="/registers" component={MainUserRegister} />
             <Route
-              path="/registers"
-              render={() => <MainUserRegister onSubmitUser={console.log} />}
+              path="/repos/:username/:repoId"
+              component={MainRepoDashboard}
             />
             <Route path="/repos/:username" component={MainReposList} />
             <Redirect from="*" to="/registers" />
           </Switch>
         )}
-        left={() => (
-          <MainNav
-            title="Navs"
-            navs={[{ key: '1', title: 'sample' }]}
-            onToggleNav={_toggleIsOpenLeft}
-          />
-        )}
+        left={() => <MainNav onToggleNav={_toggleIsOpenLeft} />}
         isOpenLeft={isOpenLeft}
       />
     );

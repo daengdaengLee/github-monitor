@@ -61,7 +61,7 @@ const MainReposList = ({ repos, match }) => {
       <List>
         {list.map(repo => (
           <ListItem key={repo.id}>
-            <Link to={`/repos/${match.params.username}/${repo.id}`}>
+            <Link to={`/repos/${match.params.username}/${repo.name}`}>
               {repo.name}
             </Link>
           </ListItem>

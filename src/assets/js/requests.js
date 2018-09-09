@@ -13,3 +13,19 @@ export const listRepos = (username, page) =>
       !page ? '' : `&page=${page}`
     }`,
   );
+// .then(result => ({ result, success: true }))
+// .catch(result => ({ result, success: false }));
+
+export const listCommits = (username, repo, page) =>
+  githubApi
+    .get(
+      `repos/${username}/${repo}/commits?since=2018-01-01T00:00:00Z${
+        !page ? '' : `&page=${page}`
+      }`,
+    )
+    .then(({ data: commits, headers: { link } }) => ({
+      success: true,
+      commits,
+      link,
+    }))
+    .catch(() => ({ success: false }));

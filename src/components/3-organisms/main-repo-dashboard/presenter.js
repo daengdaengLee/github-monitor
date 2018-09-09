@@ -53,10 +53,15 @@ const BlockA = styled.a`
   text-decoration: none !important;
 `;
 
-const MainRepoDashboard = ({ match, repos }) => {
-  const { username, repoId } = match.params;
+const MainRepoDashboard = ({ match, repos, commits, fetchStart }) => {
+  const { username, repoName } = match.params;
   const repoList = repos[username] || [];
-  const currentRepo = repoList.find(repo => `${repo.id}` === repoId);
+  const currentRepo = repoList.find(repo => `${repo.name}` === repoName);
+  const currentCommits =
+    commits[`${currentRepo.owner.login}/${currentRepo.name}`];
+  currentCommits === undefined &&
+    fetchStart(currentRepo.owner.login, currentRepo.name);
+  console.log(currentCommits);
   return !currentRepo ? null : (
     <Container>
       <Title>
@@ -101,6 +106,8 @@ const MainRepoDashboard = ({ match, repos }) => {
 MainRepoDashboard.propTypes = {
   match: PropTypes.object.isRequired,
   repos: PropTypes.object.isRequired,
+  commits: PropTypes.object.isRequired,
+  fetchStart: PropTypes.func.isRequired,
 };
 
 export default MainRepoDashboard;

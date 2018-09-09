@@ -9,11 +9,12 @@ import { createBrowserHistory } from 'history';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import users from './modules/users';
 import repos from './modules/repos';
+import commits from './modules/commits';
 import rootSaga from './sagas';
 
 export const history = createBrowserHistory();
 
-const rootReducer = combineReducers({ users, repos });
+const rootReducer = combineReducers({ users, repos, commits });
 
 const sagaMiddleware = createSagaMiddleware();
 

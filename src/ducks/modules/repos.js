@@ -59,6 +59,7 @@ export function pushRepos({ username, repos }) {
 // Reducer Functions
 function applyFetchStart(state) {
   return {
+    ...state,
     isFetching: true,
   };
 }

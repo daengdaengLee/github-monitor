@@ -26,7 +26,7 @@ class MainPage extends Component {
           <Switch>
             <Route path="/registers" component={MainUserRegister} />
             <Route
-              path="/repos/:username/:repoId"
+              path="/repos/:username/:repoName"
               component={MainRepoDashboard}
             />
             <Route path="/repos/:username" component={MainReposList} />

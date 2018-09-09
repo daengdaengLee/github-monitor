@@ -26,8 +26,11 @@ export function pushUser({ username }) {
 
 // Reudcer Functions
 function applyPushUser(state, { username }) {
-  return {
-    ...state,
-    usernames: [...state.usernames, username],
-  };
+  const isInclude = state.usernames.includes(username);
+  return isInclude
+    ? state
+    : {
+      ...state,
+      usernames: [...state.usernames, username],
+    };
 }

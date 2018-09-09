@@ -8,13 +8,18 @@ const githubApi = axios.create({
 });
 
 export const listRepos = (username, page) =>
-  githubApi.get(
-    `/users/${username}/repos?sort=created&type=all${
-      !page ? '' : `&page=${page}`
-    }`,
-  );
-// .then(result => ({ result, success: true }))
-// .catch(result => ({ result, success: false }));
+  githubApi
+    .get(
+      `/users/${username}/repos?sort=created&type=all${
+        !page ? '' : `&page=${page}`
+      }`,
+    )
+    .then(({ data: repos, headers: { link } }) => ({
+      success: true,
+      repos,
+      link,
+    }))
+    .catch(() => ({ success: false }));
 
 export const listCommits = (username, repo, page) =>
   githubApi

@@ -33,4 +33,4 @@ export const listCommits = (username, repo, page) =>
       commits,
       link,
     }))
-    .catch(() => ({ success: false }));
+    .catch(() => ({ success: false, commits: [], link: undefined }));

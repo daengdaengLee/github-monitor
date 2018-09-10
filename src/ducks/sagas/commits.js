@@ -12,6 +12,7 @@ import { listCommits } from '../../assets/js/requests';
 
 // Workers
 function* fetchStartSaga({ owner, repo }) {
+  yield put(pushCommits({ owner, repo, commits: null }));
   const allCommits = [];
   let successFlag = true;
   const { success, commits, link } = yield call(listCommits, owner, repo);
@@ -25,10 +26,13 @@ function* fetchStartSaga({ owner, repo }) {
   const lastPage = parseInt(lastLink.slice(idx1 + 5, idx2), 10);
   for (let i = 2; i <= lastPage; i += 1) {
     const { success, commits } = yield call(listCommits, owner, repo, i);
+    if (!success) break;
     allCommits.push(...commits);
     successFlag = successFlag && success;
   }
-  yield put(pushCommits({ owner, repo, commits: allCommits }));
+  yield put(
+    pushCommits({ owner, repo, commits: successFlag ? allCommits : undefined }),
+  );
   yield put(
     successFlag ? fetchSuccess({ owner, repo }) : fetchFail({ owner, repo }),
   );

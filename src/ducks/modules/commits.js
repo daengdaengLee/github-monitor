@@ -84,7 +84,7 @@ function applyFetchFail(state) {
 
 function applyPushCommits(state, { owner, repo, commits }) {
   const key = `${owner}/${repo}`;
-  const isInit = !state.commits.hasOwnProperty(key);
+  const isInit = state.commits.key === undefined || state.commits.key === null;
   const pushedCommits = isInit
     ? { ...state.commits, [key]: commits }
     : { ...state.commits, [key]: [...state.commits[key], ...commits] };

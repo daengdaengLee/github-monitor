@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import { Spin } from 'antd';
+import CommitsChart from '../../2-molecules/commits-chart';
 
 const Container = styled.div`
   width: 100%;
@@ -57,11 +60,11 @@ const MainRepoDashboard = ({ match, repos, commits, fetchStart }) => {
   const { username, repoName } = match.params;
   const repoList = repos[username] || [];
   const currentRepo = repoList.find(repo => `${repo.name}` === repoName);
+  if (!currentRepo) return <Redirect to="/" />;
   const currentCommits =
     commits[`${currentRepo.owner.login}/${currentRepo.name}`];
   currentCommits === undefined &&
     fetchStart(currentRepo.owner.login, currentRepo.name);
-  console.log(currentCommits);
   return !currentRepo ? null : (
     <Container>
       <Title>
@@ -98,6 +101,16 @@ const MainRepoDashboard = ({ match, repos, commits, fetchStart }) => {
       </Row>
       <Row alignItems="center">
         {`Language: ${currentRepo.language || 'No language'}`}
+      </Row>
+      <Row height="4rem" alignItems="flex-end">
+        Commit Counts
+      </Row>
+      <Row height="20rem" alignItems="center" justifyContent="center">
+        {currentCommits === undefined ? null : currentCommits === null ? (
+          <Spin tip="Loading" />
+        ) : (
+          <CommitsChart commits={currentCommits} />
+        )}
       </Row>
     </Container>
   );

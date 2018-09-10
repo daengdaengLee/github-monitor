@@ -10,8 +10,18 @@ import {
 } from '../modules/commits';
 import { listCommits } from '../../assets/js/requests';
 
+import _ from 'underscore';
+
+// const dummyCommits = [...Array(100)].map((v, i) => {
+//   const month = _.random(1, 12);
+//   const date = `2018-${month < 10 ? `0${month}` : month}-01T12:00:00Z`;
+//   return { commit: { committer: { date } } };
+// });
+
 // Workers
 function* fetchStartSaga({ owner, repo }) {
+  // yield put(pushCommits({ owner, repo, commits: dummyCommits }));
+  // return;
   yield put(pushCommits({ owner, repo, commits: null }));
   const allCommits = [];
   let successFlag = true;
